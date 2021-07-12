@@ -10,6 +10,7 @@
   "dependencies": {
     "@mapbox/mapbox-gl-geocoder": "^4.7.1",
     "@studiometa/vue-mapbox-gl": "^1.4.7",
+    "axios": "^0.21.1",
     "core-js": "^3.6.5",
     "mapbox-gl": "^1.13.1",
     "vue": "^2.6.11",

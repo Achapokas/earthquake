@@ -12,21 +12,43 @@
 </template>
 
 <script>
+import axios from "axios";
+let radius = 8;
+
 export default {
   name: "Map",
-
+  props: { startTime: String, endTime: String, minMagnitude: Number },
+  mounted() {
+    axios
+      .get(
+        `https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&starttime=${this.startTime}&endtime=${this.endTime}&minmagnitude=${this.minMagnitude}`
+      )
+      .then((response) => (this.sourceOptions.data = response.data))
+      .catch((error) => (this.error = error));
+  },
+  watch: {
+    startTime: function (newStartTime) {
+      axios
+        .get(
+          `https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&starttime=${newStartTime}&endtime=${this.endTime}&minmagnitude=${this.minMagnitude}`
+        )
+        .then((response) => (this.sourceOptions.data = response.data))
+        .catch((error) => (this.error = error));
+    },
+  },
   data() {
     return {
       map: null,
+      error: "",
       sourceOptions: {
         type: "geojson",
-        data: "https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson",
+        data: {},
       },
       layerOptions: {
         type: "circle",
         source: "usgs",
         paint: {
-          "circle-radius": 8,
+          "circle-radius": radius,
           "circle-stroke-width": 1,
           "circle-color": "red",
           "circle-stroke-color": "white",
