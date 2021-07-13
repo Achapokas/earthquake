@@ -34,7 +34,7 @@ export default {
     request(start, end, mag) {
       axios
         .get(
-          `https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojon&starttime=${start}&endtime=${end}&minmagnitude=${mag}`
+          `https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&starttime=${start}&endtime=${end}&minmagnitude=${mag}`
         )
         .then((response) => (this.sourceOptions.data = response.data))
         .catch((error) => this.$emit("update:error", error));
@@ -49,6 +49,7 @@ export default {
     },
   },
   mounted() {
+    this.$emit("update:error", "");
     this.request(
       this.fields.startTime,
       this.fields.endTime,
