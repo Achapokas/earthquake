@@ -1,17 +1,19 @@
 <template>
   <v-app>
     <side-bar
-      :start-time.sync="startTime"
-      :end-time.sync="endTime"
-      :min-magnitude.sync="minMagnitude"
+      :start-time.sync="fields.startTime"
+      :end-time.sync="fields.endTime"
+      :min-magnitude.sync="fields.minMagnitude"
     />
     <v-main>
+      <v-alert class="m-0" v-if="this.error" dense type="error">{{
+        this.error
+      }}</v-alert>
       <v-container fluid fill-height d-flex pa-0>
         <main-map
           class="flex-grow-1 fill-height"
-          :start-time="startTime"
-          :end-time="endTime"
-          :min-magnitude="minMagnitude"
+          :fields="fields"
+          :error.sync="error"
         />
       </v-container>
     </v-main>
@@ -22,8 +24,6 @@
 import MainMap from "./components/Map";
 import SideBar from "./components/SideBar";
 
-console.log(Date.now());
-
 export default {
   name: "App",
   components: {
@@ -33,9 +33,12 @@ export default {
 
   data() {
     return {
-      startTime: "2021-07-11",
-      endTime: "2021-07-14",
-      minMagnitude: 0,
+      error: "",
+      fields: {
+        startTime: "2021-07-11",
+        endTime: "2021-07-14",
+        minMagnitude: 0,
+      },
     };
   },
 };

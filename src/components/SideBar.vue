@@ -20,7 +20,7 @@
         label="Min Magnitude"
         type="number"
         :value="minMagnitude"
-        @input="$emit('update:minMagnitude', $event)"
+        @input="$emit('update:minMagnitude', Number($event))"
       ></v-text-field>
     </div>
   </v-navigation-drawer>
