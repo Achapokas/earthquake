@@ -32,6 +32,7 @@ export default {
   },
   methods: {
     request(start, end, mag) {
+      this.$emit("update:error", "");
       axios
         .get(
           `https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&starttime=${start}&endtime=${end}&minmagnitude=${mag}`
